@@ -9,25 +9,29 @@
 import Foundation
 
 struct Attack {
-    var attackType: AttackType
     var physicalDamage = 0
     var magicDamage = 0
     var attackRoll: Int
-    init(attackType: AttackType, dmg: Int, roll: Int) {
-        self.attackType = attackType
+    init(physicadDmg: Int, magicDmg: Int, roll: Int) {
         self.attackRoll = roll
-        switch attackType {
-        case .physical:
-            self.physicalDamage = dmg
-        case .magic:
-            self.physicalDamage = dmg
+        self.physicalDamage = physicalDmg
+        self.magicDamage = magicDmg
+    }
+    
+    init(from url: URL) {
+        let components = url.components!
+        for query in components.queryItems {
+            if query.name == "physicalDmg" {
+                self.physicalDamage = Int(query.value)
+            }
+            if query.name == "magicDmg" {
+                self.magicDamager = Int(query.value)
+            }
+            if query.name == "attackRoll {
+                self.attackRoll = Int(query.value)
+            }
         }
     }
-}
-
-enum AttackType {
-    case physical
-    case magic
 }
 
 enum Dice: Int {

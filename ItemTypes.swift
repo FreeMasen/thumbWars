@@ -20,15 +20,17 @@ protocol WeaponType: ItemType {
     var damageRoll: Dice { get }
 }
 
-protocol ArmorType: ItemType {
-    var physicalDefence: Int { get }
-    var magicResistance: Int { get }
-    var damageRoll: Dice { get }
-}
-
-protocol AccessoryType: ItemType {
+protocol RingType: ItemType {
     var physicalDefence: Int { get }
     var magicResistance: Int { get }
     var physicalBonus: Int { get }
     var magicBonus: Int { get }
+}
+
+protocol BoostType: ItemType {
+    var physicalDefence: Int { get }
+    var magicResistance: Int { get }
+    var physicalBonus: Int { get }
+    var magicBonus: Int { get }
+    var expriation: Date { get } 
 }
