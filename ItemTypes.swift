@@ -13,24 +13,22 @@ protocol ItemType {
     var Description: String { get }
 }
 
-protocol WeaponType: ItemType {
-    var attackType: AttackType { get }
-    var magicBonus: Int { get }
-    var physicalBonus: Int { get }
+protocol HelmetType: ItemType, BoostType {
+    var magicDmg: Int { get }
+    var physicalDmg: Int { get }
     var damageRoll: Dice { get }
 }
 
-protocol RingType: ItemType {
+protocol RingType: ItemType, BoostType {
     var physicalDefence: Int { get }
     var magicResistance: Int { get }
-    var physicalBonus: Int { get }
-    var magicBonus: Int { get }
 }
 
 protocol BoostType: ItemType {
+    var healthBonus: Int { get }
     var physicalDefence: Int { get }
     var magicResistance: Int { get }
-    var physicalBonus: Int { get }
+    var attackBonus: Int { get }
     var magicBonus: Int { get }
-    var expriation: Date { get } 
+    var expriation: Date? { get }
 }

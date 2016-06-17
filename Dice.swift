@@ -14,23 +14,28 @@ struct Attack {
     var attackRoll: Int
     init(physicadDmg: Int, magicDmg: Int, roll: Int) {
         self.attackRoll = roll
-        self.physicalDamage = physicalDmg
+        self.physicalDamage = physicadDmg
         self.magicDamage = magicDmg
     }
     
-    init(from url: URL) {
-        let components = url.components!
-        for query in components.queryItems {
-            if query.name == "physicalDmg" {
-                self.physicalDamage = Int(query.value)
+    init?(from url: URL) {
+        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: false),
+            let queryItems = components.queryItems else { return nil }
+        var physicalDmg: Int?
+        var magicDmg: Int?
+        var attackRoll: Int?
+        for item in queryItems {
+            if item.name == "physicalDmg" {
+                physicalDmg = Int(item.value!)!
             }
-            if query.name == "magicDmg" {
-                self.magicDamager = Int(query.value)
+            if item.name == "magicDmg" {
+                magicDmg = Int(item.value!)!
             }
-            if query.name == "attackRoll {
-                self.attackRoll = Int(query.value)
+            if item.name == "attackRoll" {
+                attackRoll = Int(item.value!)!
             }
         }
+        self.init(physicadDmg: physicalDmg!, magicDmg: magicDmg!, roll: attackRoll!)
     }
 }
 
@@ -62,4 +67,5 @@ enum Dice: Int {
     var description: String {
         return "1 - \(self.rawValue)"
     }
+    
 }

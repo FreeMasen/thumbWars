@@ -15,9 +15,10 @@ protocol ThumbType {
     var physicalDefence: Int { get }
     var magicResistance: Int { get }
     var items: [ItemType] { get }
-    var weapons: [WeaponType] { get }
-    var armor: [ArmorType] { get }
+    var helmets: [HelmetType] { get }
+    var rings: [RingType] { get }
+    var boosts: [BoostType] { get }
     
-    func attack(with weapon: WeaponType) -> Attack
+    func attack(with weapon: HelmetType) -> Attack
     func defend(against: Attack)
 }
