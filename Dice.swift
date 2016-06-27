@@ -8,37 +8,6 @@
 
 import Foundation
 
-struct Attack {
-    var physicalDamage = 0
-    var magicDamage = 0
-    var attackRoll: Int
-    init(physicadDmg: Int, magicDmg: Int, roll: Int) {
-        self.attackRoll = roll
-        self.physicalDamage = physicadDmg
-        self.magicDamage = magicDmg
-    }
-    
-    init?(from url: URL) {
-        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: false),
-            let queryItems = components.queryItems else { return nil }
-        var physicalDmg: Int?
-        var magicDmg: Int?
-        var attackRoll: Int?
-        for item in queryItems {
-            if item.name == "physicalDmg" {
-                physicalDmg = Int(item.value!)!
-            }
-            if item.name == "magicDmg" {
-                magicDmg = Int(item.value!)!
-            }
-            if item.name == "attackRoll" {
-                attackRoll = Int(item.value!)!
-            }
-        }
-        self.init(physicadDmg: physicalDmg!, magicDmg: magicDmg!, roll: attackRoll!)
-    }
-}
-
 enum Dice: Int {
     case d2 = 2
     case d3 = 3

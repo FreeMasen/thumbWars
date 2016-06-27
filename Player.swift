@@ -8,17 +8,22 @@
 
 import Foundation
 
-protocol ThumbType {
+protocol Player {
     var level: Int { get }
-    var health: Int { get }
-    var baseAttack: Int { get }
-    var physicalDefence: Int { get }
-    var magicResistance: Int { get }
     var items: [ItemType] { get }
     var helmets: [HelmetType] { get }
     var rings: [RingType] { get }
     var boosts: [BoostType] { get }
-    
+}
+
+protocol Attacker {
+    var baseAttack: Int { get }
     func attack(with weapon: HelmetType) -> Attack
-    func defend(against: Attack)
+}
+
+protocol Defender {
+    var baseHealth: Int { get }
+    var baseDefense: Int { get }
+    var baseResistance: Int { get }
+    func defend(against: Attack) -> Defense
 }

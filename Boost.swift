@@ -1,41 +1,28 @@
 //
-//  Items.swift
+//  Boost.swift
 //  thumbWars
 //
-//  Created by Robert Masen on 6/16/16.
+//  Created by Robert Masen on 6/25/16.
 //  Copyright © 2016 Robert Masen. All rights reserved.
 //
 
 import Foundation
 import CloudKit
 
-protocol ItemType {
-    var name: String { get }
-    var description: String { get }
+struct Boost: BoostType {
+    var id: CKRecordID?
+    var name: String
+    var description: String
+    var healthBonus: Int
+    var physicalDefense: Int
+    var magicResistance: Int
+    var attackBonus: Int
+    var physicalDamageBonus: Int
+    var magicDamageBonus: Int
+    var expriation: Date?
 }
 
-protocol HelmetType: ItemType, BoostType {
-    var magicDmg: Int { get }
-    var physicalDmg: Int { get }
-    var damageRoll: Dice { get }
-}
-
-protocol RingType: ItemType, BoostType, CloudKitRepresentable {
-    var physicalDefense: Int { get }
-    var magicResistance: Int { get }
-}
-
-protocol BoostType: ItemType {
-    var healthBonus: Int { get }
-    var physicalDefense: Int { get }
-    var magicResistance: Int { get }
-    var attackBonus: Int { get }
-    var physicalDamageBonus: Int { get }
-    var magicDamageBonus: Int { get }
-    var expriation: Date? { get }
-}
-
-extension RingType {
+extension Boost: CloudKitRepresentable {
     func asCloudKitRecord() -> CKRecord {
         let record = CKRecord(recordType: "ring")
         record.setObject(name, forKey: "name")
