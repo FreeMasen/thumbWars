@@ -15,5 +15,8 @@ protocol QueryRepresentable {
 
 protocol CloudKitRepresentable {
     var id: CKRecordID? { get }
+    
+    //init?(from record: CKRecord)
+    
     func asCloudKitRecord() -> CKRecord
 }

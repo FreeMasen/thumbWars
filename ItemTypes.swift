@@ -20,7 +20,7 @@ protocol HelmetType: ItemType, BoostType {
     var damageRoll: Dice { get }
 }
 
-protocol RingType: ItemType, BoostType, CloudKitRepresentable {
+protocol RingType: ItemType, BoostType {
     var physicalDefense: Int { get }
     var magicResistance: Int { get }
 }

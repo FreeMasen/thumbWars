@@ -22,18 +22,18 @@ struct Boost: BoostType {
     var expriation: Date?
 }
 
-extension Boost: CloudKitRepresentable {
-    func asCloudKitRecord() -> CKRecord {
-        let record = CKRecord(recordType: "ring")
-        record.setObject(name, forKey: "name")
-        record.setObject(description, forKey: "description")
-        record.setObject(physicalDefense, forKey: "physicalDefense")
-        record.setObject(magicResistance, forKey: "magicResistance")
-        record.setObject(healthBonus, forKey: "healthBonus")
-        record.setObject(attackBonus, forKey: "attackBonus")
-        record.setObject(physicalDamageBonus, forKey: "physicalDamageBonus")
-        record.setObject(magicDamageBonus, forKey: "magicDamageBonuse")
-        record.setObject(expriation, forKey: "expriation")
-        return record
-    }
-}
+//extension Boost: CloudKitRepresentable {
+//    func asCloudKitRecord() -> CKRecord {
+//        let record = CKRecord(recordType: "ring")
+//        record.setObject(name, forKey: "name")
+//        record.setObject(description, forKey: "description")
+//        record.setObject(physicalDefense, forKey: "physicalDefense")
+//        record.setObject(magicResistance, forKey: "magicResistance")
+//        record.setObject(healthBonus, forKey: "healthBonus")
+//        record.setObject(attackBonus, forKey: "attackBonus")
+//        record.setObject(physicalDamageBonus, forKey: "physicalDamageBonus")
+//        record.setObject(magicDamageBonus, forKey: "magicDamageBonuse")
+//        record.setObject(expriation, forKey: "expriation")
+//        return record
+//    }
+//}

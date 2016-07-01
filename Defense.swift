@@ -40,15 +40,15 @@ extension Defense: QueryRepresentable {
     }
 }
 
-extension Defense: CloudKitRepresentable {
-    func asCloudKitRecord() -> CKRecord {
-        let record = CKRecord(recordType: "defense")
-        record.setObject(self.physicalDamage, forKey: "physicalDamage")
-        record.setObject(self.magicDamage, forKey: "magicDamage")
-        record.setObject(self.successful, forKey: "successful")
-        return record
-    }
-}
+//extension Defense: CloudKitRepresentable {
+//    func asCloudKitRecord() -> CKRecord {
+//        let record = CKRecord(recordType: "defense")
+//        record.setObject(self.physicalDamage, forKey: "physicalDamage")
+//        record.setObject(self.magicDamage, forKey: "magicDamage")
+//        record.setObject(self.successful, forKey: "successful")
+//        return record
+//    }
+//}
 
 extension Defense: Equatable { }
 

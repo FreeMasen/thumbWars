@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-struct Attack: CloudKitRepresentable {
+struct Attack {
     
     var id: CKRecordID? = nil
     
@@ -45,20 +45,22 @@ struct Attack: CloudKitRepresentable {
     }
 }
 
-extension Attack {
-    func asQueryItems() -> [URLQueryItem] {
+extension Attack: QueryRepresentable {
+    func asURLQueryItems() -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         queryItems.append(URLQueryItem(name: "physicalDamage", value: String(physicalDamage)))
         queryItems.append(URLQueryItem(name: "magicDamage", value: String(magicDamage)))
         queryItems.append(URLQueryItem(name: "attackRoll", value: String(attackRoll)))
         return queryItems
     }
-    
-    func asCloudKitRecord() -> CKRecord {
-        let record = CKRecord(recordType: "Attack")
-        record.setObject(self.physicalDamage, forKey: "physicalDamage")
-        record.setObject(self.magicDamage, forKey: "magicDamage")
-        record.setObject(self.attackRoll, forKey: "attackRoll")
-        return record
-    }
 }
+
+//extension Attack: CloudKitRepresentable {
+//    func asCloudKitRecord() -> CKRecord {
+//        let record = CKRecord(recordType: "Attack")
+//        record.setObject(self.physicalDamage, forKey: "physicalDamage")
+//        record.setObject(self.magicDamage, forKey: "magicDamage")
+//        record.setObject(self.attackRoll, forKey: "attackRoll")
+//        return record
+//    }
+//}
