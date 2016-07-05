@@ -10,71 +10,25 @@ import Foundation
 import CloudKit
 
 struct Helmet: HelmetType {
-    var id: CKRecordID?
     var record: CKRecord
+    var reference: CKReference {
+        return CKReference(record: record, action: .none)
+    }
     //itemType
-    var name: String {
-        didSet {
-            self.record.setObject(name, forKey: "name")
-        }
-    }
-    var description: String {
-        didSet {
-            self.record.setObject(description, forKey: "description")
-        }
-    }
+    var name: String
+    var description: String
     //HelmetType
-    var magicDmg: Int {
-        didSet {
-            self.record.setObject(magicDmg, forKey: "magicDmg")
-        }
-    }
-    var physicalDmg: Int {
-        didSet {
-            self.record.setObject(physicalDmg, forKey: "physicalDmg")
-        }
-    }
-    var damageRoll: Dice {
-        didSet {
-            self.record.setObject(damageRoll.rawValue, forKey: "damageRoll")
-        }
-    }
+    var magicDmg: Int
+    var physicalDmg: Int
+    var damageRoll: Dice
     //BoostTYpe
-    var healthBonus: Int {
-        didSet {
-            self.record.setObject(healthBonus, forKey: "healthBonus")
-        }
-    }
-    var physicalDefense: Int {
-        didSet {
-            self.record.setObject(physicalDefense, forKey: "physicalDefense")
-        }
-    }
-    var magicResistance: Int {
-        didSet {
-            self.record.setObject(magicResistance, forKey: "magicResistance")
-        }
-    }
-    var attackBonus: Int {
-        didSet {
-            self.record.setObject(attackBonus, forKey: "attackBonus")
-        }
-    }
-    var physicalDamageBonus: Int {
-        didSet {
-            self.record.setObject(physicalDamageBonus, forKey: "physicalDamageBonus")
-        }
-    }
-    var magicDamageBonus: Int {
-        didSet {
-            self.record.setObject(magicDamageBonus, forKey: "magicDamageBonus")
-        }
-    }
-    var expriation: Date? {
-        didSet {
-            self.record.setObject(expriation, forKey: "expriation")
-        }
-    }
+    var healthBonus: Int
+    var physicalDefense: Int
+    var magicResistance: Int
+    var attackBonus: Int
+    var physicalDamageBonus: Int
+    var magicDamageBonus: Int
+    var expiration: Date?
     
     init() {
         self.record = CKRecord(recordType: "Helmet")
@@ -91,9 +45,8 @@ struct Helmet: HelmetType {
         self.magicDamageBonus = 0
     }
     
-    init?(from record: CKRecord) {
+    init?(with record: CKRecord) {
         self.record = record
-        self.id = record.recordID
         if let name = record.object(forKey: "name") as? String,
             let description = record.object(forKey: "description") as? String,
             let magicDmg = record.object(forKey: "magicDmg") as? Int,
@@ -106,7 +59,7 @@ struct Helmet: HelmetType {
             let attackBonus = record.object(forKey: "attackBonus") as? Int,
             let physicalDamageBonus = record.object(forKey: "physicalDamageBonus") as? Int,
             let magicDamageBonus = record.object(forKey: "magicDamageBonus") as? Int {
-            
+        
             self.name = name
             self.description = description
             self.magicDmg = magicDmg
@@ -119,11 +72,12 @@ struct Helmet: HelmetType {
             self.attackBonus = attackBonus
             self.physicalDamageBonus = physicalDamageBonus
             self.magicDamageBonus = magicDamageBonus
+            if let expiration = record.object(forKey: "expiration") as? Date {
+                self.expiration = expiration
+            }
         } else {
             return nil
         }
-        
-        
     }
 }
 
@@ -133,22 +87,3 @@ func ==(lhs: Helmet, rhs: Helmet) -> Bool {
     if lhs.name == rhs.name { return true }
     return false
 }
-
-//extension Helmet: CloudKitRepresentable {
-//    func asCloudKitRecord() -> CKRecord {
-//        let record = CKRecord(recordType: "helmet")
-//        record.setObject(name, forKey: "name")
-//        record.setObject(description, forKey: "desciption")
-//        record.setObject(magicDmg, forKey: "magicDamage")
-//        record.setObject(physicalDmg, forKey: "physicalDamage")
-//        record.setObject(damageRoll.rawValue, forKey: "damageRoll")
-//        record.setObject(healthBonus, forKey: "healthBonus")
-//        record.setObject(physicalDefense, forKey: "defense")
-//        record.setObject(magicResistance, forKey: "resistance")
-//        record.setObject(attackBonus, forKey: "attackBonus")
-//        record.setObject(physicalDamageBonus, forKey: "physicalDamageBonus")
-//        record.setObject(magicDamageBonus, forKey: "magicDamageBonus")
-//        record.setObject(expriation, forKey: "expiration")
-//        return record
-//    }
-//}

@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-protocol ItemType {
+protocol ItemType: CloudKitRepresentable {
     var name: String { get }
     var description: String { get }
 }
@@ -32,21 +32,11 @@ protocol BoostType: ItemType {
     var attackBonus: Int { get }
     var physicalDamageBonus: Int { get }
     var magicDamageBonus: Int { get }
-    var expriation: Date? { get }
+    var expiration: Date? { get }
 }
 
-extension RingType {
-    func asCloudKitRecord() -> CKRecord {
-        let record = CKRecord(recordType: "ring")
-        record.setObject(name, forKey: "name")
-        record.setObject(description, forKey: "description")
-        record.setObject(physicalDefense, forKey: "physicalDefense")
-        record.setObject(magicResistance, forKey: "magicResistance")
-        record.setObject(healthBonus, forKey: "healthBonus")
-        record.setObject(attackBonus, forKey: "attackBonus")
-        record.setObject(physicalDamageBonus, forKey: "physicalDamageBonus")
-        record.setObject(magicDamageBonus, forKey: "magicDamageBonuse")
-        record.setObject(expriation, forKey: "expriation")
-        return record
+extension ItemType {
+    var reference: CKReference {
+        return CKReference(record: self.record, action: .none)
     }
 }

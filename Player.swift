@@ -10,7 +10,6 @@ import Foundation
 
 protocol Player {
     var level: Int { get }
-    var items: [ItemType] { get }
     var helmets: [HelmetType] { get }
     var rings: [RingType] { get }
     var boosts: [BoostType] { get }
@@ -18,7 +17,7 @@ protocol Player {
 
 protocol Attacker {
     var baseAttack: Int { get }
-    func attack(with weapon: HelmetType) -> Attack
+    func attack() -> Attack
 }
 
 protocol Defender {

@@ -11,6 +11,9 @@ import CloudKit
 
 struct Ring: ItemType, RingType, BoostType {
     //var id: CKRecordID?
+    var reference: CKReference {
+        return CKReference(record: record, action: .none)
+    }
     var record: CKRecord
     //itemType
     var name: String
@@ -23,7 +26,7 @@ struct Ring: ItemType, RingType, BoostType {
     var attackBonus: Int
     var physicalDamageBonus: Int
     var magicDamageBonus: Int
-    var expriation: Date?
+    var expiration: Date?
     
     init?(with record: CKRecord) {
         self.record = record
@@ -34,7 +37,7 @@ struct Ring: ItemType, RingType, BoostType {
             let healthBonus = record.object(forKey: "healthBonus") as? Int,
             let attackBonus = record.object(forKey: "attackBonus") as? Int,
             let physicalDamageBonus = record.object(forKey: "physicalDamageBonus") as? Int,
-            let magicDamageBonus = record.object(forKey: "magicDamageBonus") as? Int {
+            let magicDamageBonus = record.object(forKey: "magicDamageBonus") as? Int{
             self.name = name
             self.description = description
             self.physicalDefense = physicalDefense
@@ -43,6 +46,9 @@ struct Ring: ItemType, RingType, BoostType {
             self.attackBonus = attackBonus
             self.physicalDamageBonus = physicalDamageBonus
             self.magicDamageBonus = magicDamageBonus
+            if let expiration = record.object(forKey: "expiration") as? Date {
+                self.expiration = expiration
+            }
         } else {
             return nil
         }

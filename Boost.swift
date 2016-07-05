@@ -10,7 +10,10 @@ import Foundation
 import CloudKit
 
 struct Boost: BoostType {
-    var id: CKRecordID?
+    var id: CKRecordID {
+        return self.record.recordID
+    }
+    var record: CKRecord
     var name: String
     var description: String
     var healthBonus: Int
@@ -19,7 +22,33 @@ struct Boost: BoostType {
     var attackBonus: Int
     var physicalDamageBonus: Int
     var magicDamageBonus: Int
-    var expriation: Date?
+    var expiration: Date?
+    
+    init?(with record: CKRecord) {
+        self.record = record
+        if let name = record.object(forKey: "name") as? String,
+            let description = record.object(forKey: "description") as? String,
+            let healthBonus = record.object(forKey: "healthBonus") as? Int,
+            let physicalDefense = record.object(forKey: "physicalDefense") as? Int,
+            let magicResistance = record.object(forKey: "magicResistance") as? Int,
+            let attackBonus = record.object(forKey: "attackBonus") as? Int,
+            let physicalDamageBonus = record.object(forKey: "physicalDamageBonus") as? Int,
+            let magicDamageBonus = record.object(forKey: "magicDamageBonus") as? Int {
+            self.name = name
+            self.description = description
+            self.healthBonus = healthBonus
+            self.physicalDefense = physicalDefense
+            self.magicResistance = magicResistance
+            self.attackBonus = attackBonus
+            self.physicalDamageBonus = physicalDamageBonus
+            self.magicDamageBonus = magicDamageBonus
+            if let expiration = record.object(forKey: "expiration") as? Date {
+                self.expiration = expiration
+            }
+        } else {
+            return nil
+        }
+    }
 }
 
 //extension Boost: CloudKitRepresentable {
