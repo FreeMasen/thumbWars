@@ -10,9 +10,7 @@ import Foundation
 
 protocol Player {
     var level: Int { get }
-    var helmets: [HelmetType] { get }
-    var rings: [RingType] { get }
-    var boosts: [BoostType] { get }
+    var pack: Pack { get set }
 }
 
 protocol Attacker {
